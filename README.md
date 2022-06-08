@@ -1,12 +1,10 @@
-# HAPI
+# HAPI：ML API Benchmark and Analysis
 
 [![standard-readme compliant](https://img.shields.io/badge/readme%20style-standard-brightgreen.svg?style=flat-square)](https://github.com/RichardLitt/standard-readme)
 [![License](https://img.shields.io/badge/license-Apache%202-blue.svg)](LICENSE)
-[![Paper](http://img.shields.io/badge/paper-arxiv.2006.07512-B31B1B.svg)](https://arxiv.org/abs/2006.07512)
-%[![Conference](http://img.shields.io/badge/NeurIPS-2020-4b44ce.svg)]()
 
 
-This is the official implementation for the NeurIPS paper:
+Welcome! This repository holds a large scale dataset for ML API benchmark and analysis. 
 
 Lingjiao Chen, Matei Zaharia, James Zou, [FrugalML: How to Use ML Prediction APIs More Accurately and Cheaply](https://arxiv.org/abs/2006.07512).
 
