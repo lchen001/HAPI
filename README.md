@@ -11,8 +11,8 @@ from Amazon, Google, IBM, Microsoft and other providers) across diverse tasks in
  The full data can be downloaded [Here](https://drive.google.com/drive/folders/1jK6KywfUbh3T3SorP18nAZDhES1xZm4p?usp=sharing)
 . 
 
-### Instruction, Use case, 
-Contents will be added soon.
+### Instruction, use case, and more 
+More contents will be updated soon.
 
 ### License
-[Apache 2.0](LICENSE) © Lingjiao Chen.
+[Apache 2.0](LICENSE).
