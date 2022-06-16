@@ -13,7 +13,7 @@ from shutil import rmtree
 from setuptools import Command, find_packages, setup
 
 main_ns = {}
-ver_path = convert_path("dcbench/version.py")
+ver_path = convert_path("hapi/version.py")
 with open(ver_path) as ver_file:
     exec(ver_file.read(), main_ns)
 

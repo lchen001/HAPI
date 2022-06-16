@@ -14,7 +14,7 @@
 
 
 
-A benchmark of data-centric tasks from across the machine learning lifecycle.
+A longitudinal database of ML API predictions. 
 
 [**Getting Started**](#%EF%B8%8F-quickstart)
 | [**What is HAPI?**](#-what-is-dcbench)
@@ -32,11 +32,11 @@ A benchmark of data-centric tasks from across the machine learning lifecycle.
 ```bash
 pip install hapi
 ```
-> Optional: some parts of Meerkat rely on optional dependencies. If you know which optional dependencies you'd like to install, you can do so using something like `pip install dcbench[dev]` instead. See setup.py for a full list of optional dependencies.
+> Optional: some parts of Meerkat rely on optional dependencies. If you know which optional dependencies you'd like to install, you can do so using something like `pip install hapi[dev]` instead. See setup.py for a full list of optional dependencies.
 
 > Installing from dev: `pip install "hapi[dev] @ git+https://github.com/data-centric-ai/dcbench@main"`
 
-Using a Jupyter notebook or some other interactive environment, you can import the library 
+Using a Jupyter notebook or some other interactive environment, you can import the library  
 and explore the data-centric problems in the benchmark:
 
 ```python
@@ -46,9 +46,22 @@ To learn more, follow the [walkthrough](https://dcbench.readthedocs.io/en/latest
 
 
 ## 💡 What is HAPI?
-HAPI is a large-scale longitudinal database of commercial ML API predictions. It contains 1.7 million predictions spanning APIs including Amazon, Google, IBM, Microsoft and diverse tasks including image tagging, speech recognition and text mining from 2020 to 2022.
+History of APIs (HAPI) is a large-scale, longitudinal database of commercial ML API predictions. It contains 1.7 million predictions spanning APIs from Amazon, Google, IBM, Microsoft. The database include diverse machine learning tasks including image tagging, speech recognition and text mining from 2020 to 2022.
 
 
+## 📚 Docs
+
+The folder structure:
+```
+tasks/
+    ner/
+        conll/
+            google_ner_20200.
+        zhner/
+        ...
+    str/
+    asr/
+```
 
 ## ✉️ About
 `HAPI` was developed at Stanford in the Zou Group. Reach out to Lingjiao Chen (lingjiao [at] stanford [dot] edu) and Sabri Eyuboglu (eyuboglu [at] stanford [dot] edu) if you would like to get involved!
