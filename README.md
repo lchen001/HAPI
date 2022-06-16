@@ -25,34 +25,31 @@ A longitudinal database of ML API predictions.
 </div>
 
 
-## ⚡️ Downloading
-The database is available for download from this [GCP bucket](https://console.cloud.google.com/storage/browser/hapi-data). (Compressed size: `205.3MB`, Full size: `1.2GB`)
+## 💡 What is HAPI?
+History of APIs (HAPI) is a large-scale, longitudinal database of commercial ML API predictions. It contains 1.7 million predictions spanning APIs from Amazon, Google, IBM, Microsoft. The database include diverse machine learning tasks including image tagging, speech recognition and text mining from 2020 to 2022.
 
-Download and extract the data with:
-```
+
+## 💾 Downloading
+The database is stored in a GCP bucket named [`hapi-data`](https://console.cloud.google.com/storage/browser/hapi-data). All model predictions are stored in [`hapi.tar.gz`](https://storage.googleapis.com/hapi-data/hapi.tar.gz) (Compressed size: `205.3MB`, Full size: `1.2GB`). 
+    
+From the command line, you can download and extract the predictions with: 
+```bash
     wget https://storage.googleapis.com/hapi-data/hapi.tar.gz && tar -xzvf hapi.tar.gz 
 ```
 
-
+## ⚡️ Quickstart
+We provide a lightweight python package for getting started with HAPI. 
 ```bash
-pip install hapi
+pip install hapi @ git+https://github.com/lchen001/hapi@main
 ```
-> Optional: some parts of Meerkat rely on optional dependencies. If you know which optional dependencies you'd like to install, you can do so using something like `pip install hapi[dev]` instead. See setup.py for a full list of optional dependencies.
-
-> Installing from dev: `pip install "hapi[dev] @ git+https://github.com/data-centric-ai/dcbench@main"`
 
 Using a Jupyter notebook or some other interactive environment, you can import the library  
 and explore the data-centric problems in the benchmark:
 
 ```python
 import hapi
+hapi.list()
 ```
-To learn more, follow the [walkthrough](https://dcbench.readthedocs.io/en/latest/intro.html#api-walkthrough) in the docs. 
-
-
-
-## 💡 What is HAPI?
-History of APIs (HAPI) is a large-scale, longitudinal database of commercial ML API predictions. It contains 1.7 million predictions spanning APIs from Amazon, Google, IBM, Microsoft. The database include diverse machine learning tasks including image tagging, speech recognition and text mining from 2020 to 2022.
 
 
 ## 📚 Docs
@@ -62,7 +59,8 @@ The folder structure:
 tasks/
     ner/
         conll/
-            google_ner_20200.
+            google/
+                .
         zhner/
         ...
     str/
