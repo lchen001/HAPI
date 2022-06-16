@@ -25,8 +25,13 @@ A longitudinal database of ML API predictions.
 </div>
 
 
-## ⚡️ Quickstart
- The full data can be downloaded [Here](https://drive.google.com/drive/folders/1jK6KywfUbh3T3SorP18nAZDhES1xZm4p?usp=sharing)
+## ⚡️ Downloading
+The database is available for download from this [GCP bucket](https://console.cloud.google.com/storage/browser/hapi-data). (Compressed size: `205.3MB`, Full size: `1.2GB`)
+
+Download and extract the data with:
+```
+    wget https://storage.googleapis.com/hapi-data/hapi.tar.gz && tar -xzvf hapi.tar.gz 
+```
 
 
 ```bash
@@ -43,6 +48,7 @@ and explore the data-centric problems in the benchmark:
 import hapi
 ```
 To learn more, follow the [walkthrough](https://dcbench.readthedocs.io/en/latest/intro.html#api-walkthrough) in the docs. 
+
 
 
 ## 💡 What is HAPI?
