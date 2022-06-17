@@ -85,4 +85,11 @@ def get_predictions(
         preds[os.path.splitext(path)[0]] = json.load(
             open(os.path.join(config.data_dir, path))
         )
+    
     return preds
+
+def get_dataset(dataset: str):
+
+    if dataset == "pascal":
+
+        pass 
