@@ -26,7 +26,7 @@ A longitudinal database of ML API predictions.
 
 
 ## 💡 What is HAPI?
-History of APIs (HAPI) is a large-scale, longitudinal database of commercial ML API predictions. It contains 1.7 million predictions spanning APIs from Amazon, Google, IBM, Microsoft. The database include diverse machine learning tasks including image tagging, speech recognition and text mining from 2020 to 2022.
+History of APIs (HAPI) is a large-scale, longitudinal database of commercial ML API predictions. It contains 1.7 million predictions collected from 2020 to 2022 and spanning APIs from Amazon, Google, IBM, and Microsoft. The database include diverse machine learning tasks including image tagging, speech recognition and text mining.
 
 
 ## 💾  Downloading
@@ -36,6 +36,7 @@ From the command line, you can download and extract the predictions with:
 ```bash
     wget https://storage.googleapis.com/hapi-data/hapi.tar.gz && tar -xzvf hapi.tar.gz 
 ```
+or use our python package as described below... 
 
 ## ⚡️ Quickstart
 We provide a lightweight python package for getting started with HAPI. 
