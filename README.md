@@ -81,21 +81,5 @@ By default, the predictions are returned as a dictionary mapping from `"{task}/{
 
 
 
-
-## 📚 Docs
-
-The folder structure:
-```
-tasks/
-    ner/
-        conll/
-            google/
-                .
-        zhner/
-        ...
-    str/
-    asr/
-```
-
 ## ✉️ About
 `HAPI` was developed at Stanford in the Zou Group. Reach out to Lingjiao Chen (lingjiao [at] stanford [dot] edu) and Sabri Eyuboglu (eyuboglu [at] stanford [dot] edu) if you would like to get involved!
