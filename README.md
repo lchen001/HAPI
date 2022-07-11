@@ -17,7 +17,7 @@ A longitudinal database of ML API predictions.
 | [**What is HAPI?**](#-what-is-dcbench)
 | [**Docs**](https://dcbench.readthedocs.io/en/latest/index.html)
 | [**Contributing**](CONTRIBUTING.md)
-| [**Website**](https://www.datacentricai.cc/)
+| [**Website**](https://hapi-explore.github.io/)
 | [**About**](#%EF%B8%8F-about)
 </div>
 
