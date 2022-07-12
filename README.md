@@ -82,8 +82,7 @@ From the command line, you can download and extract the predictions with:
 ```bash
     wget https://storage.googleapis.com/hapi-data/hapi.tar.gz && tar -xzvf hapi.tar.gz 
 ```
-or use our python package as described below... 
-
+However, we recommend downloading using the Python API as described above. 
 
 
 ## ✉️ About
