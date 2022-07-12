@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-
+from pathlib import Path
 
 from dataclasses import dataclass
 import json
@@ -37,7 +37,11 @@ class HAPIConfig:
         assert os.path.exists(self._data_dir)
 
 
-config = HAPIConfig(data_dir=os.environ.get("HAPI_DATA_DIR", None))
+config = HAPIConfig(
+    data_dir=os.environ.get(
+        "HAPI_DATA_DIR", os.path.join(os.path.join(Path.home(), ".hapi"))
+    )
+)
 
 
 def download(data_dir: str = None):
@@ -49,6 +53,9 @@ def download(data_dir: str = None):
     """
     if data_dir is None:
         data_dir = config._data_dir
+
+    os.makedirs(data_dir, exist_ok=True)
+
     urlretrieve(
         DATA_URL,
         os.path.join(data_dir, "hapi.tar.gz"),
@@ -64,7 +71,7 @@ def download(data_dir: str = None):
 def list():
     import pandas as pd
 
-    df = pd.read_csv(os.path.join(config.data_dir, "meta.csv"))
+    df = pd.read_csv(os.path.join(config.data_dir, "tasks", "meta.csv"))
     return df
 
 

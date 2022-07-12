@@ -24,14 +24,6 @@ A longitudinal database of ML API predictions.
 History of APIs (HAPI) is a large-scale, longitudinal database of commercial ML API predictions. It contains 1.7 million predictions collected from 2020 to 2022 and spanning APIs from Amazon, Google, IBM, and Microsoft. The database include diverse machine learning tasks including image tagging, speech recognition and text mining.
 
 
-## 💾  Downloading
-The database is stored in a GCP bucket named [`hapi-data`](https://console.cloud.google.com/storage/browser/hapi-data). All model predictions are stored in [`hapi.tar.gz`](https://storage.googleapis.com/hapi-data/hapi.tar.gz) (Compressed size: `205.3MB`, Full size: `1.2GB`). 
-    
-From the command line, you can download and extract the predictions with: 
-```bash
-    wget https://storage.googleapis.com/hapi-data/hapi.tar.gz && tar -xzvf hapi.tar.gz 
-```
-or use our python package as described below... 
 
 ## ⚡️ Quickstart
 We provide a lightweight python package for getting started with HAPI. 
@@ -39,14 +31,23 @@ We provide a lightweight python package for getting started with HAPI.
 pip install hapi @ git+https://github.com/lchen001/hapi@main
 ```
 
-Import the library and specify the path to downloaded predictions (as described [above](#💾-downloading)). 
+Import the library and download the data, optionally specifying the directory for the
+the download. If the directory is not specified, the data will be downloaded to
+`~/.hapi`.
+
 
 ```python
 import hapi
-hapi.config.data_dir = "/path/to/data
+
+# optional
+hapi.config.data_dir = "/path/to/data/dir
+
+hapi.download()
 ```
 
-We can list the available APIs, datasets, and tasks with `hapi.list()`. This returns a [Pandas DataFrame](https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html) with columns `task, dataset, api, date, path, cost_per_10k`. 
+> You can permanently set the data directory by adding the variable `HAPI_DATA_DIR` to your environment.
+
+Once we've downloaded, we can list the available APIs, datasets, and tasks with `hapi.list()`. This returns a [Pandas DataFrame](https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html) with columns `task, dataset, api, date, path, cost_per_10k`. 
 ```python
 df = hapi.list()
 ```
@@ -73,6 +74,15 @@ By default, the predictions are returned as a dictionary mapping from `"{task}/{
     ...
 }
 ```
+
+## 💾  Manual Downloading
+The database is stored in a GCP bucket named [`hapi-data`](https://console.cloud.google.com/storage/browser/hapi-data). All model predictions are stored in [`hapi.tar.gz`](https://storage.googleapis.com/hapi-data/hapi.tar.gz) (Compressed size: `205.3MB`, Full size: `1.2GB`). 
+    
+From the command line, you can download and extract the predictions with: 
+```bash
+    wget https://storage.googleapis.com/hapi-data/hapi.tar.gz && tar -xzvf hapi.tar.gz 
+```
+or use our python package as described below... 
 
 
 
