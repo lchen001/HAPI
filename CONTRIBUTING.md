@@ -1,7 +1,7 @@
-# Contributing to dcbench
+# Contributing to hapi
 
 We welcome contributions of all kinds: code, documentation, feedback and support. If
- you use dcbench in your work (blogs posts, research, company) and find it
+ you use hapi in your work (blogs posts, research, company) and find it
   useful, spread the word!  
   
 This contribution borrows from and is heavily inspired by [Huggingface transformers](https://github.com/huggingface/transformers). 
@@ -53,22 +53,22 @@ issues to make sure that nobody is already working on the same thing. If you are
 unsure, it is always a good idea to open an issue to get some feedback.
 
 You will need basic `git` proficiency to be able to contribute to
-`dcbench`. `git` is not the easiest tool to use but it has the greatest
+`hapi`. `git` is not the easiest tool to use but it has the greatest
 manual. Type `git --help` in a shell and enjoy. If you prefer books, [Pro
 Git](https://git-scm.com/book/en/v2) is a very good reference.
 
 Follow these steps to start contributing:
 
-1. Fork the [repository](https://github.com/data-centric-ai/dcbench) by
+1. Fork the [repository](https://github.com/lchen001/hapi) by
    clicking on the 'Fork' button on the repository's page. 
    This creates a copy of the code under your GitHub user account.
 
 2. Clone your fork to your local disk, and add the base repository as a remote:
 
    ```bash
-   $ git clone git@github.com:<your Github handle>/dcbench.git
-   $ cd dcbench
-   $ git remote add upstream https://github.com/data-centric-ai/dcbench.git
+   $ git clone git@github.com:<your Github handle>/hapi.git
+   $ cd hapi
+   $ git remote add upstream https://github.com/lchen001/hapi.git
    ```
 
 3. Create a new branch to hold your development changes:
@@ -79,7 +79,7 @@ Follow these steps to start contributing:
 
    **Do not** work on the `main` branch.
 
-4. dcbench manages dependencies using [`poetry`](https://python-poetry.org). 
+4. hapi manages dependencies using [`poetry`](https://python-poetry.org). 
 Set up a development environment with `poetry` by running the following command in
  a virtual environment:
 
@@ -100,14 +100,14 @@ Note: in order to pass the full test suite (step 5), you'll need to install all 
    $ pytest
    ```
 
-   dcbench relies on `black` and `isort` to format its source code
+   hapi relies on `black` and `isort` to format its source code
    consistently. After you make changes, autoformat them with:
 
    ```bash
    $ make autoformat
    ```
 
-   dcbench also uses `flake8` to check for coding mistakes. Quality control
+   hapi also uses `flake8` to check for coding mistakes. Quality control
     runs in CI, however you should also run the same checks with:
 
    ```bash
@@ -151,7 +151,7 @@ Note: in order to pass the full test suite (step 5), you'll need to install all 
    You can use `pre-commit` to make sure you don't forget to format your code properly, 
    the dependency should already be made available by `poetry`.
    
-   Just install `pre-commit` for the `dcbench` directory,
+   Just install `pre-commit` for the `hapi` directory,
    
    ```bash
    $ pre-commit install
@@ -188,7 +188,7 @@ Note: in order to pass the full test suite (step 5), you'll need to install all 
 
 A test suite is included to test the library behavior. 
 Library tests can be found in the 
-[tests folder](https://github.com/data-centric-aidcbench/tree/main/tests).
+[tests folder](https://github.com/lchen001hapi/tree/main/tests).
 
 From the root of the
 repository, here's how to run tests with `pytest` for the library:
@@ -203,7 +203,7 @@ you're working on.
 Per the checklist above, all PRs should include high-coverage tests. 
 To produce a code coverage report, run the following `pytest`
 ```
-pytest --cov-report term-missing,html --cov=dcbench .
+pytest --cov-report term-missing,html --cov=hapi .
 ```
 This will populate a directory `htmlcov` with an HTML report. 
 Open `htmlcov/index.html` in a browser to view the report. 
@@ -211,5 +211,5 @@ Open `htmlcov/index.html` in a browser to view the report.
 
 ### Style guide
 
-For documentation strings, dcbench follows the 
+For documentation strings, hapi follows the 
 [google style](https://google.github.io/styleguide/pyguide.html).
