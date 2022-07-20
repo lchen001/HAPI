@@ -40,7 +40,7 @@ the download. If the directory is not specified, the data will be downloaded to
 import hapi
 
 # optional
-hapi.config.data_dir = "/path/to/data/dir
+hapi.config.data_dir = "/path/to/data/dir"
 
 hapi.download()
 ```
