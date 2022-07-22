@@ -32,9 +32,9 @@ DATASET_INFO = {
 def get_dataset(
     dataset: str,
 ) -> "mk.DataPanel":
-    """ Load a dataset from the Meerkat registry. If the dataset is not downloaded,
+    """ Load a dataset from the Meerkat registry. If the dataset is not yet downloaded,
     it will be downloaded automatically. Not all datasets in HAPI are supported: 
-    If the dataset is not yet available through the Meerkat Dataset Registry, a `
+    if the dataset is not yet available through the Meerkat Dataset Registry, a `
     ValueError` will be raised containing instructions for manually downloading the 
     dataset. For example:
 
