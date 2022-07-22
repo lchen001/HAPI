@@ -39,17 +39,16 @@ the download. If the directory is not specified, the data will be downloaded to
 ```python
 import hapi
 
-# optional
-hapi.config.data_dir = "/path/to/data/dir"
+hapi.config.data_dir = "/path/to/data/dir" 
 
 hapi.download()
 ```
 
 > You can permanently set the data directory by adding the variable `HAPI_DATA_DIR` to your environment.
 
-Once we've downloaded, we can list the available APIs, datasets, and tasks with `hapi.list()`. This returns a [Pandas DataFrame](https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html) with columns `task, dataset, api, date, path, cost_per_10k`. 
+Once we've downloaded the database, we can list the available APIs, datasets, and tasks with `hapi.summary()`. This returns a [Pandas DataFrame](https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html) with columns `task, dataset, api, date, path, cost_per_10k`. 
 ```python
-df = hapi.list()
+df = hapi.summary()
 ```
 
 To load the predictions into memory we use `hapi.get_predictions()`. The keyword arguments allow us to load predictions for a subset of tasks, datasets, apis and/or dates. 
@@ -58,12 +57,11 @@ predictions =
 hapi.get_predictions(task="mic", dataset="pascal", api=["google_mic", "ibm_mic"])
 ```
 
-By default, the predictions are returned as a dictionary mapping from `"{task}/{dataset}/{api}/{date}"` to lists of dictionaries, each with keys `"id"`, `"prediction"`, `"confidence"`. For example,
+The predictions are returned as a dictionary mapping from `"{task}/{dataset}/{api}/{date}"` to lists of dictionaries, each with keys `"example_id"`, `"predicted_label"`, and `"confidence"`. For example:
 ```python
 {
     "mic/pascal/google_mic/20-10-28": [
         {
-            'image_name': '2011_000494.jpg',
             'confidence': 0.9798267782,
             'example_id': '2011_000494',
             'predicted_label': ['bird', 'bird']
@@ -74,6 +72,16 @@ By default, the predictions are returned as a dictionary mapping from `"{task}/{
     ...
 }
 ```
+
+To load the labels into memory we use `hapi.get_labels()`. The keyword arguments allow us to load labels for a subset of tasks and datasets.
+```python
+labels = hapi.get_labels(task="mic", dataset="pascal")
+```
+
+The labels are returned as a dictionary mapping from `"{task}/{dataset}"` to lists of dictionaries, each with keys `"example_id"` and `"true_label"`. 
+
+
+
 
 ## 💾  Manual Downloading
 The database is stored in a GCP bucket named [`hapi-data`](https://console.cloud.google.com/storage/browser/hapi-data). All model predictions are stored in [`hapi.tar.gz`](https://storage.googleapis.com/hapi-data/hapi.tar.gz) (Compressed size: `205.3MB`, Full size: `1.2GB`). 

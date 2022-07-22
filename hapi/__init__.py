@@ -4,11 +4,17 @@ from pathlib import Path
 from dataclasses import dataclass
 import json
 import os
-from typing import List, Union
+from typing import Dict, List, Union
 from urllib.request import urlretrieve
+
 from tqdm.auto import tqdm
+import pandas as pd
+
+from .dataset import get_dataset
 
 DATA_URL = "https://storage.googleapis.com/hapi-data/hapi.tar.gz"
+
+__all__ = ["get_dataset", "download", "get_predictions", "get_labels", "summary"]
 
 
 @dataclass
@@ -44,12 +50,20 @@ config = HAPIConfig(
 )
 
 
-def download(data_dir: str = None):
+def download(data_dir: str = None) -> str:
     """Download the HAPI database.
 
+    The database is stored in a GCP bucket named hapi-data. All model predictions are
+    stored in hapi.tar.gz (Compressed size: 205.3MB, Full size: 1.2GB). This function
+    downloads the archive and extracts it.
+
     Args:
-        data_dir (str, optional): . Defaults to None, in which case `config.data_dir` is
-            used.
+        data_dir (str, optional): Directory to download. Defaults to None, in which case
+        `config.data_dir` is used. If `config.data_dir` is not set, then the default
+        directory is used: `~/.hapi`.
+
+    Returns:
+        str: The path to the downloaded data.
     """
     if data_dir is None:
         data_dir = config._data_dir
@@ -67,12 +81,7 @@ def download(data_dir: str = None):
     with tarfile.open(os.path.join(data_dir, "hapi.tar.gz")) as tar:
         tar.extractall(data_dir)
 
-
-def list():
-    import pandas as pd
-
-    df = pd.read_csv(os.path.join(config.data_dir, "tasks", "meta.csv"))
-    return df
+    return data_dir
 
 
 def get_predictions(
@@ -81,8 +90,48 @@ def get_predictions(
     api: Union[str, List[str]] = None,
     date: Union[str, List[str]] = None,
     include_data: bool = None,
-):
-    df = list()
+) -> Dict[str, List[Dict]]:
+    """Load API predictions into memory.
+
+    Use the `task`, `dataset`, `api`, and `date` parameters to filter to a subset of
+    the database. If more than one of these parameters is specified, the results will
+    be filtered to include only those rows that match all of the specified filters
+    (i.e. we apply AND logic).
+
+    Args:
+        task (Union[str, List[str]]): The task(s) to include. If None, all tasks are
+            loaded.  Default is None. Use ``hapi.summary()["task"].unique()`` to see
+            options.
+        dataset (Union[str, List[str]]): The dataset(s) to include. If None, all
+            datasets are loaded. Default is None. Use
+            ``hapi.summary()["dataset"].unique()`` to see options.
+        api (Union[str, List[str]]): The API(s) to include. If None, all APIs are
+            loaded. Default is None. Use ``hapi.summary()["api"].unique()`` to see
+            options.
+        date (Union[str, List[str]]): The date(s) to include in format "y-m-d". For
+            example, "20-03-29". If None, all dates are loaded. Default is None.
+        include_data (bool, optional): If True, the data for each prediction is
+
+    Returns:
+        Dict[str, List[Dict]]: A dictionary mapping keys in the format
+        "{task}/{dataset}/{api)/{date}" (e.g. "scr/command/google_scr/20-03-29") to a
+        list of dictionaries, each representing one prediction. These dictionaries
+        include keys "confidence", "predicted_label", and "example_id". For example,
+
+        .. code-block:: python
+
+            {
+                "scr/command/google_scr/20-03-29": [
+                    {
+                        'confidence': 0.9128385782,
+                        'predicted_label': 0,
+                        'example_id': 'COMMAND_004ae714_nohash_0.wav'
+                    },
+                ],
+                ...
+            }
+    """
+    df = summary()
     if task is not None:
         if isinstance(task, str):
             df = df[df["task"] == task]
@@ -114,9 +163,10 @@ def get_predictions(
         }
 
     path_to_preds = {}
-    for _, row in tqdm(df.iterrows()):
+    for _, row in tqdm(df.iterrows(), total=len(df)):
         path = row["path"]
-        preds = json.load(open(os.path.join(config.data_dir, path)))
+        preds = json.load(open(os.path.join(config.data_dir, "tasks", path)))
+
         if include_data:
             import meerkat as mk
 
@@ -129,20 +179,75 @@ def get_predictions(
     return path_to_preds
 
 
-def get_data(
-    dataset: str,
-):
+def get_labels(
+    task: Union[str, List[str]] = None,
+    dataset: Union[str, List[str]] = None,
+) -> Dict[str, List[Dict]]:
+    """Load labels into memory.
 
-    import meerkat as mk
+    Use the `task` and `dataset` parameters to filter to a subset of the database.
+    If more than one of these parameters is specified, the results will be filtered
+    to include only those rows that match all of the specified filters (i.e. we apply
+    AND logic).
 
-    if dataset == "expw":
-        dp = mk.get("expw")
+    Args:
+        task (Union[str, List[str]]): The task(s) to include. If None, all tasks are
+            loaded.  Default is None. Use ``hapi.summary()["task"].unique()`` to see
+            options.
+        dataset (Union[str, List[str]]): The dataset(s) to include. If None, all
+            datasets are loaded. Default is None. Use
+            ``hapi.summary()["dataset"].unique()`` to see options.
 
-        # remove file extension and add the face_id
-        dp["example_id"] = (
-            dp["image_name"].str.replace(".jpg", "", regex=False)
-            + "_"
-            + dp["face_id_in_image"].astype(str)
+    Returns:
+        Dict[str, List[Dict]]: A dictionary mapping keys in the format
+        "{task}/{dataset}" (e.g. "scr/command") to a
+        list of dictionaries, each representing one label. These dictionaries
+        include keys "label", "example_id", and "confidence". For example,
+
+        .. code-block:: python
+
+            {
+                "scr/command": [
+                    {
+                        'true_label': 0,
+                        'example_id': 'COMMAND_004ae714_nohash_0.wav',
+                    },
+                ],
+                ...
+            }
+    """
+    df = summary()
+    df = df[["task", "dataset"]].drop_duplicates()
+    if task is not None:
+        if isinstance(task, str):
+            df = df[df["task"] == task]
+        else:
+            df = df[df["task"].isin(task)]
+
+    if dataset is not None:
+        if isinstance(dataset, str):
+            df = df[df["dataset"] == dataset]
+        else:
+            df = df[df["dataset"].isin(dataset)]
+
+    path_to_labels = {}
+    for _, row in tqdm(df.iterrows(), total=len(df)):
+        path = os.path.join(row["task"], row["dataset"])
+        labels = json.load(
+            open(os.path.join(config.data_dir, "tasks", path, "labels.json"))
         )
+        path_to_labels[path] = labels
+    return path_to_labels
 
-        return dp
+
+def summary() -> pd.DataFrame:
+    """Summarize the HAPI database.
+
+    Returns:
+        pd.DataFrame: A dataframe where each row corresponds to one instance of API
+            predictions (i.e. predictions from a single api on a single dataset on a
+            single date). The dataframe contains the following columns: "task",
+            "dataset", "api", "date", "path", and "cost_per_10k".
+    """
+    df = pd.read_csv(os.path.join(config.data_dir, "tasks", "meta.csv"))
+    return df
