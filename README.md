@@ -80,7 +80,7 @@ The labels are returned as a dictionary mapping from `"{task}/{dataset}"` to lis
 
 
 ## 💾  Manual Downloading
-In this section, we discuss how to download the database without the HAPI Pytho API. 
+In this section, we discuss how to download the database without the HAPI Python API. 
 
 The database is stored in a GCP bucket named [`hapi-data`](https://console.cloud.google.com/storage/browser/hapi-data). All model predictions are stored in [`hapi.tar.gz`](https://storage.googleapis.com/hapi-data/hapi.tar.gz) (Compressed size: `205.3MB`, Full size: `1.2GB`). 
     
