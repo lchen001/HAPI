@@ -1,4 +1,5 @@
 from typing import TYPE_CHECKING
+import os
 
 if TYPE_CHECKING:
     import meerkat as mk
@@ -45,8 +46,26 @@ def get_dataset(
         )
 
         return dp
-    elif dataset == "ferplus":
-        pass 
+
+    elif dataset == "pascal":
+        dp = mk.get("pascal")
+        dp["example_id"] = dp["id"]
+        dp.remove_column("id")
+        return dp
+
+    elif dataset == "coco":
+        dp = mk.get("coco")
+        dp["example_id"] = dp["coco_url"].apply(
+            lambda x: os.path.splitext(os.path.basename(x))[0]
+        )
+        dp.remove_column("id")
+        return dp
+
+    elif dataset == "mir":
+        dp = mk.get("mirflickr")
+        dp["example_id"] = dp["id"]
+        dp.remove_column("id")
+        return dp
 
     elif dataset in DATASET_INFO:
         raise ValueError(

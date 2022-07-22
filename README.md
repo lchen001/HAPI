@@ -81,8 +81,6 @@ labels = hapi.get_labels(task="mic", dataset="pascal")
 The labels are returned as a dictionary mapping from `"{task}/{dataset}"` to lists of dictionaries, each with keys `"example_id"` and `"true_label"`. 
 
 
-
-
 ## 💾  Manual Downloading
 The database is stored in a GCP bucket named [`hapi-data`](https://console.cloud.google.com/storage/browser/hapi-data). All model predictions are stored in [`hapi.tar.gz`](https://storage.googleapis.com/hapi-data/hapi.tar.gz) (Compressed size: `205.3MB`, Full size: `1.2GB`). 
     
@@ -92,6 +90,28 @@ From the command line, you can download and extract the predictions with:
 ```
 However, we recommend downloading using the Python API as described above. 
 
+
+## 🌍 Datasets
+The predictions in HAPI are made on benchmark datasets from across the machine learning
+community. For example, HAPI includes predictions on [PASCAL](http://host.robots.ox.ac.uk/pascal/VOC/), a popular object detection dataset. Unfortunately, we lack permissions redistribute these datasets, so we do not include the raw data in the download described above. However, we provide instructions on how to download each of datasets and, for a growing number of them, we provide automated scripts for downloading the dataset. These scripts are implemented in the [Meerkat Dataset registry](https://meerkat.readthedocs.io/en/dev/datasets/datasets.html). 
+
+To download the data for a dataset and load it into memory, use `hapi.get_dataset()`:
+```python
+import hapi
+dp = hapi.get_dataset("pascal")
+```
+
+If the dataset is not yet available in the Meerkat Dataset Registry, a `ValueError` will
+be raised containing instructions for manually downloading the dataset. For example:
+
+```python
+>> dp = hapi.get_dataset("cmd")
+ValueError: Data download for 'cmd' not yet available for download through the  HAPI Python API. Please download manually following the instructions below: 
+ 
+CMD is a spoken command recognition dataset. 
+
+It can be downloaded here: https://pyroomacoustics.readthedocs.io/en/pypi-release/pyroomacoustics.datasets.google_speech_commands.html.
+```
 
 ## ✉️ About
 `HAPI` was developed at Stanford in the Zou Group. Reach out to Lingjiao Chen (lingjiao [at] stanford [dot] edu) and Sabri Eyuboglu (eyuboglu [at] stanford [dot] edu) if you would like to get involved!

@@ -40,6 +40,7 @@ class HAPIConfig:
     @data_dir.setter
     def data_dir(self, data_dir: str):
         self._data_dir = data_dir
+        os.makedirs(self._data_dir, exist_ok=True)
         assert os.path.exists(self._data_dir)
 
 
@@ -89,7 +90,7 @@ def get_predictions(
     dataset: Union[str, List[str]] = None,
     api: Union[str, List[str]] = None,
     date: Union[str, List[str]] = None,
-    include_data: bool = None,
+    include_dataset: bool = None,
 ) -> Dict[str, List[Dict]]:
     """Load API predictions into memory.
 
@@ -156,9 +157,9 @@ def get_predictions(
         else:
             df = df[df["date"].isin(date)]
 
-    if include_data:
+    if include_dataset:
         dataset_to_data = {
-            dataset: get_data(dataset)
+            dataset: get_dataset(dataset)
             for dataset in ([dataset] if isinstance(dataset, str) else dataset)
         }
 
@@ -167,7 +168,7 @@ def get_predictions(
         path = row["path"]
         preds = json.load(open(os.path.join(config.data_dir, "tasks", path)))
 
-        if include_data:
+        if include_dataset:
             import meerkat as mk
 
             preds = mk.DataPanel(preds).merge(
