@@ -32,6 +32,36 @@ DATASET_INFO = {
 def get_dataset(
     dataset: str,
 ) -> "mk.DataPanel":
+    """ Load a dataset from the Meerkat registry. If the dataset is not downloaded,
+    it will be downloaded automatically. Not all datasets in HAPI are supported: 
+    If the dataset is not yet available through the Meerkat Dataset Registry, a `
+    ValueError` will be raised containing instructions for manually downloading the 
+    dataset. For example:
+
+    .. code-block:: python
+
+        >> dp = hapi.get_dataset("cmd")
+
+        ValueError: Data download for 'cmd' not yet available for download through the  HAPI Python API. Please download manually following the instructions below: 
+        
+        CMD is a spoken command recognition dataset. 
+
+        It can be downloaded here: https://pyroomacoustics.readthedocs.io/en/...
+
+    Args:
+        dataset (str): The name of the dataset. 
+
+    Raises:
+        ValueError: If the dataset is not yet included in the registry. The ValueError
+            will contain instructions for manually downloading the dataset.
+
+    Returns:
+        mk.DataPanel: A Meerkat DataPanel holding the dataset. A Meerkat DataPanel is a
+            DataFrame-like object that houses the dataset. See the Meerkat User Guide 
+            for more information.  The DataPanel will have  an "example_id" column that 
+            corresponds to the "example_id" key in the outputs of 
+            `hapi.get_predictions()` and `hapi.get_labels()`. 
+    """
 
     import meerkat as mk
 

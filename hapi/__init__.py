@@ -111,7 +111,9 @@ def get_predictions(
             options.
         date (Union[str, List[str]]): The date(s) to include in format "y-m-d". For
             example, "20-03-29". If None, all dates are loaded. Default is None.
-        include_data (bool, optional): If True, the data for each prediction is
+        include_dataset (bool, optional): If True, the raw dataset is downloaded and 
+            loaded using `hapi.get_dataset()`. The dataset is then merged with the
+            predictions on the "example_id" column. Default is False.
 
     Returns:
         Dict[str, List[Dict]]: A dictionary mapping keys in the format
