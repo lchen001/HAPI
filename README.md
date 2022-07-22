@@ -28,7 +28,7 @@ History of APIs (HAPI) is a large-scale, longitudinal database of commercial ML 
 ## ⚡️ Quickstart
 We provide a lightweight python package for getting started with HAPI. 
 ```bash
-pip install hapi @ git+https://github.com/lchen001/hapi@main
+pip install "hapi @ git+https://github.com/lchen001/hapi@main"
 ```
 
 Import the library and download the data, optionally specifying the directory for the
