@@ -99,9 +99,9 @@ However, we recommend downloading using the Python API as described above.
 ## 🌍 Datasets
 In this section, we discuss how to download the benchmark datasets used in HAPI.
 
-The predictions in HAPI are made on benchmark datasets from across the machine learning community. For example, HAPI includes predictions on [PASCAL](http://host.robots.ox.ac.uk/pascal/VOC/), a popular object detection dataset. Unfortunately, we lack permissions redistribute these datasets, so we do not include the raw data in the download described above. 
+The predictions in HAPI are made on benchmark datasets from across the machine learning community. For example, HAPI includes predictions on [PASCAL](http://host.robots.ox.ac.uk/pascal/VOC/), a popular object detection dataset. Unfortunately, we lack the permissions required to redistribute these datasets, so we do not include the raw data in the download described above. 
 
-We provide instructions on how to download each of the datasets and, for a growing number of them, we provide automated scripts that can download the dataset. These scripts are implemented in the [Meerkat Dataset Registry](https://meerkat.readthedocs.io/en/dev/datasets/datasets.html) – a registry of machine learning datasets similar to [Torchvision Datasets](https://pytorch.org/vision/stable/datasets.html). 
+We provide instructions on how to download each of the datasets and, for a growing number of them, we provide automated scripts that can download the dataset. These scripts are implemented in the [Meerkat Dataset Registry](https://meerkat.readthedocs.io/en/dev/datasets/datasets.html) – a registry of machine learning datasets (similar to [Torchvision Datasets](https://pytorch.org/vision/stable/datasets.html)). 
 
 To download a dataset and load it into memory, use `hapi.get_dataset()`:
 ```python
