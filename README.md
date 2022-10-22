@@ -14,7 +14,7 @@
 A longitudinal database of ML API predictions. 
 
 [**Getting Started**](#%EF%B8%8F-quickstart)
-| [**Website**](https://hapi-explore.github.io/)
+| [**Website**](http://hapi.stanford.edu/)
 | [**Contributing**](CONTRIBUTING.md)
 | [**About**](#%EF%B8%8F-about)
 </div>
