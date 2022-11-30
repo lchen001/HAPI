@@ -7,8 +7,9 @@
 
 [![pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white)](https://github.com/pre-commit/pre-commit)
 [![standard-readme compliant](https://img.shields.io/badge/readme%20style-standard-brightgreen.svg?style=flat-square)](https://github.com/RichardLitt/standard-readme)
+[![Paper](http://img.shields.io/badge/paper-arxiv.2209.08443-B31B1B.svg)](https://arxiv.org/abs/2209.08443)
 [![License](https://img.shields.io/badge/license-Apache%202-blue.svg)](LICENSE)
-
+[![Conference](http://img.shields.io/badge/NeurIPS-2022-4b44ce.svg)]()
 
 
 A longitudinal database of ML API predictions. 
@@ -21,6 +22,9 @@ A longitudinal database of ML API predictions.
 
 
 ## 💡 What is HAPI?
+
+<div align="center"><img src="https://raw.githubusercontent.com/lchen001/HAPI/main//docs/assets/datasets.b9bdb1e1.png" height="470" width="630" ></div>
+
 History of APIs (HAPI) is a large-scale, longitudinal database of commercial ML API predictions. It contains 1.7 million predictions collected from 2020 to 2022 and spanning APIs from Amazon, Google, IBM, and Microsoft. The database include diverse machine learning tasks including image tagging, speech recognition and text mining.
 
 
